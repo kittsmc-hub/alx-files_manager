@@ -711,5 +711,6 @@ In real life, you can use a third party service like [Mailgun](https://www.mailg
 
 -   GitHub repository: `alx-files_manager`
 -   File: [`utils/`](utils/), [`worker.js`](worker.js), [`controllers/UsersController.js`](controllers/UsersController.js)
--   Contributors : Kitts Makokha 
+-   Contributors : Kitts Makokha
+ 
                    Michael Anayo Ani
