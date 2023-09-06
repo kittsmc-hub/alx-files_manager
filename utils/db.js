@@ -31,7 +31,8 @@ class DBClient {
       const count = await usersCollection.countDocuments();
       return count;
     } catch (error) {
-      return 0;     }
+      return 0;
+    }
   }
 
   async nbFiles() {
