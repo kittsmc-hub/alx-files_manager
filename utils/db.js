@@ -7,51 +7,45 @@ class DBClient {
     const database = process.env.DB_DATABASE || 'files_manager';
 
     const url = `mongodb://${host}:${port}/${database}`;
-    this.client = new MongoClient(url, { useUnifiedTopology: true });
-    this.connection = null;
-    this.db = null;
 
-    this.connect();
+    this.connect(url);
   }
 
-  async connect() {
+  async connect(url) {
+    this.connection = await MongoClient.connect(url);
+  }
+
+  async isAlive() {
     try {
-      await this.client.connect();
-      this.connection = this.client.isConnected();
-      this.db = this.client.db();
-      console.log('Connected to MongoDB');
+      await this.connection.connect();
+      return true;
     } catch (error) {
-      console.error('Error connecting to MongoDB:', error);
+      return false;
     }
-  }
-
-  isAlive() {
-    return this.connection;
   }
 
   async nbUsers() {
     try {
-      const collection = this.db.collection('users');
-      const count = await collection.countDocuments();
+      const db = this.connection.db();
+      const usersCollection = db.collection('users');
+      const count = await usersCollection.countDocuments();
       return count;
     } catch (error) {
-      console.error('Error counting users:', error);
-      return -1;
-    }
+      return 0;     }
   }
 
   async nbFiles() {
     try {
-      const collection = this.db.collection('files');
-      const count = await collection.countDocuments();
+      const db = this.connection.db();
+      const filesCollection = db.collection('files');
+      const count = await filesCollection.countDocuments();
       return count;
     } catch (error) {
-      console.error('Error counting files:', error);
-      return -1;
+      return 0;
     }
   }
 }
 
 const dbClient = new DBClient();
 
-module.exports = { dbClient };
+module.exports = dbClient;
