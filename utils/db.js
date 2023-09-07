@@ -25,13 +25,13 @@ class DBClient {
     }
   }
 
-  isAlive() {
+  isDbAlive() {
     return this.connection;
   }
 
   async nbUsers() {
     try {
-      const collection = this.db.collection('users');
+      const collection = this.db.collection.count('users');
       const count = await collection.countDocuments();
       return count;
     } catch (error) {
@@ -42,7 +42,7 @@ class DBClient {
 
   async nbFiles() {
     try {
-      const collection = this.db.collection('files');
+      const collection = this.db.collection.count('files');
       const count = await collection.countDocuments();
       return count;
     } catch (error) {
