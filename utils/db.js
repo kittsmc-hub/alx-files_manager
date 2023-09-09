@@ -24,22 +24,11 @@ class DBClient {
     }
   }
 
-<<<<<<< HEAD
-  isDbAlive() {
-    return this.connection;
-  }
-
-  async nbUsers() {
-    try {
-      const collection = this.db.collection.count('users');
-      const count = await collection.countDocuments();
-=======
   async nbUsers() {
     try {
       const db = this.connection.db();
       const usersCollection = db.collection('users');
       const count = await usersCollection.countDocuments();
->>>>>>> ee23792c92044dd4db9613ce677badcb0c6a3cbe
       return count;
     } catch (error) {
       return 0;
@@ -48,14 +37,9 @@ class DBClient {
 
   async nbFiles() {
     try {
-<<<<<<< HEAD
-      const collection = this.db.collection.count('files');
-      const count = await collection.countDocuments();
-=======
       const db = this.connection.db();
       const filesCollection = db.collection('files');
       const count = await filesCollection.countDocuments();
->>>>>>> ee23792c92044dd4db9613ce677badcb0c6a3cbe
       return count;
     } catch (error) {
       return 0;
